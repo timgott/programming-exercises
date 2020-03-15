@@ -1,5 +1,6 @@
 TEST_DIR=tests
-TESTS=$(patsubst %.c,%,$(wildcard $(TEST_DIR)/*.c))
+TEST_BUILD_DIR=tests/build
+TESTS=$(patsubst $(TEST_DIR)/%.c,$(TEST_BUILD_DIR)/%,$(wildcard $(TEST_DIR)/*.c))
 OUTPUT_FILE=capitals
 SHARED_OBJ_FILES=src/game.o src/capitalsdata.o
 TEST_OBJ_FILES=$(SHARED_OBJ_FILES)
@@ -15,14 +16,17 @@ clean:
 	rm $(TESTS)
 	rm capitals
 
-$(TEST_DIR)/%: $(TEST_OBJ_FILES) $(TEST_DIR)/%.o
+$(TEST_BUILD_DIR)/%: $(TEST_OBJ_FILES) $(TEST_DIR)/%.o
 	$(CC) $(CFLAGS) $+ -o $@
+
+$(TEST_BUILD_DIR):
+	mkdir $@
 
 RED_COLOR='\033[0;31m'
 GREEN_COLOR='\033[0;32m'
 NO_COLOR='\033[0m'
 
-tests: $(TESTS)
+tests: $(TEST_BUILD_DIR) $(TESTS)
 	@for test in $(TESTS); do \
-		echo Running $$test... && $$test && echo $(GREEN_COLOR)Test successful!$(NO_COLOR) || echo $(RED_COLOR)Test failed!$(NO_COLOR) ; echo ; \
+		echo Running $(notdir $$test)... && $$test && echo $(GREEN_COLOR)Test successful!$(NO_COLOR) || echo $(RED_COLOR)Test failed!$(NO_COLOR) ; echo ; \
 	done
