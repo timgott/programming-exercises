@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 
 typedef struct GameState {
     // string that has to be guessed
