@@ -1,0 +1,7 @@
+3
+land1
+hauptstadt1
+land2
+hauptstadt2
+land3
+hauptstadt3

@@ -16,6 +16,12 @@
             "type": "shell",
             "command": "make clean",
             "problemMatcher": []
+        },
+        {
+            "label": "tests",
+            "type": "shell",
+            "command": "make tests",
+            "problemMatcher": []
         }
     ]
 }
