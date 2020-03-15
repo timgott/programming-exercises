@@ -1,5 +1,5 @@
-capitals: src/main.c
-	gcc src/main.c -o capitals
+capitals: src/main.o src/game.o src/capitalsdata.o
+	gcc src/main.o src/game.o src/capitalsdata.o -o capitals
 
 clean:
 	rm capitals
